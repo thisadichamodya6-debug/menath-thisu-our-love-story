@@ -1,0 +1,327 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Love Story ❤️</title>
+    <style>
+        :root {
+            --primary-color: #8b0000; /* Rich Dark Red */
+            --accent-color: #ff3333;
+            --overlay-color: rgba(0, 0, 0, 0.85); /* Deep Cinematic Black */
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Poppins', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #000000; /* Pure Premium Black */
+            color: #ffffff;
+            overflow: hidden;
+            height: 100vh;
+            width: 100vw;
+        }
+
+        #audio-element {
+            display: none;
+        }
+
+        /* Dark Red Beautiful Floating Hearts */
+        .hearts-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            z-index: 2;
+            pointer-events: none;
+        }
+
+        .floating-heart {
+            position: absolute;
+            display: block;
+            bottom: -100px;
+            background-color: rgba(139, 0, 0, 0.6); /* Romantic Dark Red */
+            animation: floatUp 10s infinite linear;
+            clip-path: path('M12,21.35L10.55,20.03C5.4,15.36 2,12.27 2,8.5C2,5.41 4.42,3 7.5,3C9.24,3 10.91,3.81 12,5.08C13.09,3.81 14.76,3 16.5,3C19.58,3 22,5.41 22,8.5C22,12.27 18.6,15.36 13.45,20.03L12,21.35Z');
+        }
+
+        @keyframes floatUp {
+            0% { transform: translateY(0) rotate(0deg) scale(0.6); opacity: 0.8; }
+            100% { transform: translateY(-1200px) rotate(360deg) scale(1.2); opacity: 0; }
+        }
+
+        /* Step Main Layout */
+        .step {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.8s ease-in-out;
+            z-index: 1;
+            background-size: cover !important;
+            background-position: center center !important;
+            background-repeat: no-repeat !important;
+        }
+
+        .step.active {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* Glassmorphic Dark Red Premium Card */
+        .card {
+            max-width: 450px;
+            width: 85%;
+            background: rgba(15, 3, 3, 0.75);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            padding: 35px 25px;
+            border-radius: 25px;
+            border: 1px solid rgba(139, 0, 0, 0.4);
+            box-shadow: 0 25px 50px rgba(0, 0, 0, 0.95), 0 0 35px rgba(139, 0, 0, 0.3);
+            text-align: center;
+            z-index: 3;
+        }
+
+        /* Step Background Configurations with Dark Dim Overlay to highlight card */
+        #step-1 {
+            background: linear-gradient(var(--overlay-color), var(--overlay-color)), url('11.jpeg.jpeg');
+        }
+
+        #step-2 {
+            background: linear-gradient(var(--overlay-color), var(--overlay-color)), url('12.jpeg.jpeg');
+        }
+
+        #step-3 {
+            background: linear-gradient(var(--overlay-color), var(--overlay-color)), url('13.jpeg.jpeg');
+        }
+
+        #step-4 {
+            background: linear-gradient(var(--overlay-color), var(--overlay-color)), url('15.jpeg.jpeg');
+        }
+
+        .welcome-title {
+            font-size: 3.5rem;
+            color: #ffffff;
+            margin-bottom: 30px;
+            font-weight: bold;
+            text-shadow: 0 0 20px rgba(139, 0, 0, 0.9), 0 0 40px rgba(255, 0, 0, 0.5);
+            letter-spacing: 1px;
+        }
+
+        /* Luxury Red Buttons */
+        .btn {
+            background: linear-gradient(45deg, #4a0000, #8b0000);
+            color: #ffffff;
+            border: 1px solid rgba(255, 51, 51, 0.4);
+            padding: 15px 40px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 10px 25px rgba(139, 0, 0, 0.6);
+            transition: all 0.4s ease;
+            letter-spacing: 1px;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            background: linear-gradient(45deg, #600000, #a80000);
+            box-shadow: 0 15px 30px rgba(255, 51, 51, 0.8);
+            border-color: #ff3333;
+        }
+
+        .date {
+            font-size: 1.2rem;
+            color: #ff4d4d;
+            font-weight: bold;
+            letter-spacing: 2px;
+            margin-bottom: 20px;
+        }
+
+        .letter-text {
+            font-size: 1.3rem;
+            line-height: 1.9;
+            color: #ffffff;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        /* FIXED PHOTO BOX: Shows full image without cropping or cutting off side */
+        .image-viewer-container {
+            width: 100%;
+            height: 300px;
+            background-color: rgba(0, 0, 0, 0.5);
+            border-radius: 15px;
+            overflow: hidden;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border: 1px solid rgba(139, 0, 0, 0.3);
+            margin-bottom: 20px;
+        }
+
+        .inner-slide-img {
+            width: 100%;
+            height: 100%;
+            object-fit: contain; /* CRITICAL FIX: Ensures 100% of the image fits perfectly inside the box without being cut off */
+            display: none;
+        }
+
+        .inner-slide-img.active-img {
+            display: block;
+        }
+
+        .couple-heart {
+            font-size: 1.5rem;
+            font-weight: 600;
+            background: rgba(139, 0, 0, 0.4);
+            padding: 10px 30px;
+            border-radius: 50px;
+            display: inline-block;
+            margin: 5px 0 15px 0;
+            border: 1px solid rgba(255, 51, 51, 0.3);
+            color: #fff;
+            text-shadow: 0 0 10px rgba(255, 51, 51, 0.6);
+        }
+
+        .proposal-title {
+            font-size: 2.5rem;
+            color: #ff3333;
+            font-weight: bold;
+            text-shadow: 0 0 15px rgba(255, 0, 0, 0.6);
+            margin-bottom: 15px;
+        }
+
+        .proposal-sub {
+            font-size: 1.5rem;
+            color: #ffffff;
+            margin-bottom: 35px;
+        }
+
+        .big-thanks {
+            font-size: 3.2rem;
+            background: linear-gradient(45deg, #ffffff, #ff9999);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="audio-element" loop pre-load="auto">
+        <source src="bg-music.mp3" type="audio/mpeg">
+    </audio>
+
+    <div class="hearts-bg" id="hearts-container"></div>
+
+    <div class="step active" id="step-1">
+        <div style="text-align: center; z-index: 3; padding: 20px;">
+            <div class="welcome-title">Welcome Love ❤️</div>
+            <button class="btn" onclick="startStory()">See Love Letter</button>
+        </div>
+    </div>
+
+    <div class="step" id="step-2">
+        <div class="card">
+            <div class="date">📅 2026.06.27</div>
+            <div class="letter-text">
+                තෑන්ක්ස් මගේ ජීවිතයට ආවට. ❤️<br>
+                මං දැන් ඔයා නිසා හුඟක් සතුටින් ඉන්නේ. ඉස්සරහටත් ඔයා මගේ හැමදේටම ළඟින් ඉඳියි කියලා මං හිතනවා. දිගටම මං එක්කම ඉන්න...<br>
+                <span style="color: #ff3333; font-weight: bold; font-size: 1.6rem; text-shadow: 0 0 10px rgba(255,0,0,0.4)">මං ඔයාට හුඟක් ආදරෙයි!!!</span>
+            </div>
+            <button class="btn" onclick="nextStep(3)">Next ➡️</button>
+        </div>
+    </div>
+
+    <div class="step" id="step-3">
+        <div class="card">
+            <div class="image-viewer-container">
+                <img src="12.jpeg.jpeg" class="inner-slide-img active-img" alt="Memory 1">
+                <img src="13.jpeg.jpeg" class="inner-slide-img" alt="Memory 2">
+                <img src="14.jpeg.jpeg" class="inner-slide-img" alt="Memory 3">
+                <img src="15.jpeg.jpeg" class="inner-slide-img" alt="Memory 4">
+            </div>
+            
+            <div class="couple-heart">
+                Menath 💞 Thisadi
+            </div>
+            
+            <p style="font-size: 1.1rem; color: #d0d0d0; margin-bottom: 20px;">Our Beautiful Memories Forever...</p>
+            <button class="btn" onclick="nextStep(4)">Next ➡️</button>
+        </div>
+    </div>
+
+    <div class="step" id="step-4">
+        <div class="card">
+            <div style="font-size: 55px; margin-bottom: 10px; filter: drop-shadow(0 0 10px #ff3333);">💍</div>
+            <div class="proposal-title">I Love You So Much!</div>
+            <div class="proposal-sub">Please promise you marry me...</div>
+            <div class="big-thanks">Thank You! ✨</div>
+        </div>
+    </div>
+
+    <script>
+        function startStory() {
+            const music = document.getElementById('audio-element');
+            music.play().catch(error => console.log("Audio playing required interaction first."));
+            nextStep(2);
+        }
+
+        function nextStep(stepNumber) {
+            document.querySelectorAll('.step').forEach(step => {
+                step.classList.remove('active');
+            });
+            document.getElementById(`step-${stepNumber}`).classList.add('active');
+
+            if(stepNumber === 3) {
+                initiateImageRotation();
+            }
+        }
+
+        // Smooth Image Slide Rotation Handler for Step 3
+        function initiateImageRotation() {
+            const innerImages = document.querySelectorAll('.inner-slide-img');
+            let currentIndex = 0;
+            
+            // Clear any previous setup interval to prevent conflicts
+            if(window.imageSliderTimer) clearInterval(window.imageSliderTimer);
+
+            window.imageSliderTimer = setInterval(() => {
+                innerImages[currentIndex].classList.remove('active-img');
+                currentIndex = (currentIndex + 1) % innerImages.length;
+                innerImages[currentIndex].classList.add('active-img');
+            }, 2500);
+        }
+
+        // Custom High-Quality Dark Red Falling Animation Generator
+        const container = document.getElementById('hearts-container');
+        const count = 25;
+
+        for (let i = 0; i < count; i++) {
+            const heart = document.createElement('div');
+            heart.classList.add('floating-heart');
+            
+            const randomSize = Math.floor(Math.random() * 20) + 12;
+            heart.style.width = `${randomSize}px`;
+            heart.style.height = `${randomSize}px`;
+            
+            heart.style.left = `${Math.random() * 100}%`;
+            heart.style.animationDelay = `${Math.random() * 6}s`;
+            heart.style.animationDuration = `${Math.random() * 5 + 6}s`;
+            
+            container.appendChild(heart);
+        }
+    </script>
+</body>
+</html>
